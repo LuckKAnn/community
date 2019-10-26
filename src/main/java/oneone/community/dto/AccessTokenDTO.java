@@ -2,17 +2,17 @@ package oneone.community.dto;
 
 public class AccessTokenDTO {
     private String client_id;
-    private String client_secrit;
+    private String client_secret;
     private String code;
     private String redirect_uri;
     private String state;
 
-    public String getClient_secrit() {
-        return client_secrit;
+    public String getClient_secret() {
+        return client_secret;
     }
 
-    public void setClient_secrit(String client_secrit) {
-        this.client_secrit = client_secrit;
+    public void setClient_secret(String client_secrit) {
+        this.client_secret = client_secrit;
     }
 
     public String getCode() {

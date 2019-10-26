@@ -1,27 +1,60 @@
 package oneone.community.controller;
 
 import oneone.community.dto.AccessTokenDTO;
+import oneone.community.mapper.UserMapper;
+import oneone.community.model.User;
 import oneone.community.provider.GithubProvider;
+import oneone.community.provider.GithubUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
+
+    @Value("${github.client.id}")
+    private String clientId;
+    @Value("${github.client.secret}")
+    private String clientSecret;
+    @Value("${github.redirect.uri}")
+    private String redirectUri;
+
+    @Autowired
+    private UserMapper userMapper;
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code")String code,
-                    @RequestParam(name = "state")String state){
+                           @RequestParam(name = "state")String state,
+                           HttpServletRequest request){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setRedirect_uri("http://localhost:8080/callback");
+        accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
-        accessTokenDTO.setClient_id("83e7ee42167f84d10160");
-        accessTokenDTO.setClient_secrit("34137539e5db91a99369d85c2fd9555ec74a871b");
+        accessTokenDTO.setClient_id(clientId);
+        accessTokenDTO.setClient_secret(clientSecret);
+        String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        GithubUser githubUser = githubProvider.getGithubUser(accessToken);
 
-        githubProvider.getAccessToken(accessTokenDTO);
-        return "index";
+        if(githubUser!=null){
+            //登录成功，写入cookie和session
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setName(githubUser.getName());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+            request.getSession().setAttribute("user",githubUser);
+            return "redirect:/";
+        }else {
+            //登录失败，重新登录
+            return "redirect:/";
+        }
     }
 }
