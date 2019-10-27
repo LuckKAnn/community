@@ -17,9 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request){
-        System.out.println("-------------");
         Cookie[] cookies = request.getCookies();
-        System.out.println(cookies);
         if (cookies != null){
             for(Cookie cookie : cookies){
                 if (cookie.getName().equals("token")){
