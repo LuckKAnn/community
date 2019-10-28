@@ -77,6 +77,7 @@ insert into SPJ (SNO,PNO,JNO,QTY) values ('S2','P5','J1',400);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S2','P5','J2',100);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S3','P1','J1',200);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S3','P3','J1',200);
+insert into SPJ (SNO,PNO,JNO,QTY) values ('S4','P5','J1',100);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S4','P6','J3',300);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S4','P6','J4',200);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P2','J4',100);
@@ -85,3 +86,17 @@ insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P6','J2',200);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P6','J4',500);
 
 --查询语句
+--(1)求供应工程J1零件的供应商号码SNO
+select SNO from SPJ where JNO='J1' GROUP BY SNO;
+
+--(2)求供应工程J1零件P1的供应商号码SNO
+select SNO from SPJ where JNO='J1' and PNO='P1' group by SNO;
+
+--(3)求供应工程J1零件为红色的供应商号码SNO
+select SNO from P,SPJ where P.PNO=SPJ.PNO and P.COLOR='红' and JNO='J1' group by SNO;
+
+--(4)求没有使用天津供应商生产的红色零件的工程号JNO
+select JNO from S,P,SPJ where S.SNO=SPJ.SNO and P.PNO=SPJ.PNO and S.CITY not in ('天津') and P.COLOR not in ('红色') group by JNO;
+
+--(5)求至少用了供应商S1所供应的全部零件的工程号JNO
+select JNO from SPJ where SNO in ('S1') GROUP BY JNO;
