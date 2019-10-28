@@ -83,3 +83,5 @@ insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P2','J4',100);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P3','J1',200);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P6','J2',200);
 insert into SPJ (SNO,PNO,JNO,QTY) values ('S5','P6','J4',500);
+
+--查询语句
