@@ -12,11 +12,9 @@ public interface UserMapper {
             "values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio},#{avatarUrl})")
     void insert(User user);
 
-    @Select("select id,name,account_id as accountId,token,gmt_create as gtmCreate," +
-            "gmt_modified as gmtModified, bio,avatar_url as avatarUrl from user where token=#{token}")
+    @Select("select * from user where token=#{token}")
     User findUserByToken(@Param("token") String token);
 
-    @Select("select id,name,account_id as accountId,token,gmt_create as gtmCreate," +
-            "gmt_modified as gmtModified, bio,avatar_url as avatarUrl from user where id=#{creator}")
-    User findById(Integer creator);
+    @Select("select * from user where account_id=#{creator} GROUP BY account_id")
+    User findByAccountId(@Param("creator") String creator);
 }

@@ -24,7 +24,9 @@ public class QuestionService {
         List<Question> questionList = questionMapper.list();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question:questionList) {
-            User user = userMapper.findById(question.getCreator());
+            String creator = String.valueOf(question.getCreator());
+            User user = userMapper.findByAccountId(creator);
+
             QuestionDTO questionDTO = new QuestionDTO();//快速抽取变量：alt + ctrl+v
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
