@@ -15,4 +15,8 @@ public interface UserMapper {
     @Select("select id,name,account_id as accountId,token,gmt_create as gtmCreate," +
             "gmt_modified as gmtModified, bio,avatar_url as avatarUrl from user where token=#{token}")
     User findUserByToken(@Param("token") String token);
+
+    @Select("select id,name,account_id as accountId,token,gmt_create as gtmCreate," +
+            "gmt_modified as gmtModified, bio,avatar_url as avatarUrl from user where id=#{creator}")
+    User findById(Integer creator);
 }

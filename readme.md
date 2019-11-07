@@ -7,7 +7,7 @@
 - [fastjson](https://github.com/alibaba/fastjson):将Json转换为Java对象
 ### 前端
 - [bootstrap](https://v3.bootcss.com)
-- [thymeleaf](https://spring.io/guides/gs/serving-web-content/):将后端数据绑定到前端页面
+- thymeleaf[Spring集成用法](https://spring.io/guides/gs/serving-web-content/)  [官方文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html):将后端数据绑定到前端页面
 
 ## 用到的工具
 - [lombok](https://projectlombok.org/):为JavaBean创建@ToString, @EqualsAndHashCode, @Getter，@Setter
