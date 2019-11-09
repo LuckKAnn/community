@@ -3,7 +3,6 @@ package oneone.community.controller;
 import oneone.community.mapper.QuestionMapper;
 import oneone.community.model.Question;
 import oneone.community.model.User;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
