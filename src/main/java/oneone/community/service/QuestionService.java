@@ -1,5 +1,6 @@
 package oneone.community.service;
 
+import oneone.community.dto.PaginationDTO;
 import oneone.community.dto.QuestionDTO;
 import oneone.community.mapper.QuestionMapper;
 import oneone.community.mapper.UserMapper;
@@ -20,9 +21,22 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> list() {
-        List<Question> questionList = questionMapper.list();
+    public PaginationDTO list(Integer page, Integer size) {
+
+        Integer offSet = size * (page - 1);
+        List<Question> questionList = questionMapper.list(offSet,size);
+
+        Integer totalCount = questionMapper.count();
+
+        Integer totalPage;
+        if (totalCount % size == 0)
+            totalPage = totalCount / size;
+        else
+            totalPage = totalCount / size + 1;
+
         List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        PaginationDTO paginationDTO = new PaginationDTO();
         for (Question question:questionList) {
             String creator = String.valueOf(question.getCreator());
             User user = userMapper.findByAccountId(creator);
@@ -32,6 +46,9 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        paginationDTO.setTotalPage(totalPage);
+        paginationDTO.setPagination(page);
+        paginationDTO.setQuestionDTOS(questionDTOList);
+        return paginationDTO;
     }
 }

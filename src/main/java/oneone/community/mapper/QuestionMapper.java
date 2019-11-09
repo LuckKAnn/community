@@ -3,6 +3,7 @@ package oneone.community.mapper;
 import oneone.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public interface QuestionMapper {
             "values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{commentCount},#{viewCount},#{likeCount},#{tag})")
     void create(Question question);
 
-    @Select("select * from question")
-    List<Question> list();
+    @Select("select * from question limit #{offSet}, #{size}")
+    List<Question> list(@Param("offSet")Integer offSet,@Param("size") Integer size);
+
+    @Select("select count(1) from question")
+    Integer count();
 }
