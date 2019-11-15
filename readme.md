@@ -13,3 +13,12 @@
 - [lombok](https://projectlombok.org/):为JavaBean创建@ToString, @EqualsAndHashCode, @Getter，@Setter
 - [flyway](https://flywaydb.org/):数据库版本控制
 
+## 脚本
+### flyway运行命令
+```bash
+mvn flyway:migrate
+```
+### sql
+```sql
+
+```
