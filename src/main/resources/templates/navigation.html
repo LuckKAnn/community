@@ -5,14 +5,15 @@
 <body>
 
 <div th:fragment="nav">
+
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
+        <div class="container-fluid navigation">
+            <div class="navbar-header" >
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">oneone社区</span>
                 </button>
-                <a class="navbar-brand" href="/">oneone社区</a>
+                <a class="navbar-brand" href="/" style="color: #ffffff">oneone社区</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,11 +25,11 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user != null}">
-                        <a href="/publish">发布</a>
+                        <a href="/publish" style="color: #ffffff">发布</a>
                     </li>
-                    <li class="dropdown" th:if="${session.user != null}">
+                    <li class="dropdown" th:if="${session.user != null}" >
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">
+                           aria-expanded="false" style="color: #ffffff">
                             <span th:text="${session.user.getName()}"></span>
                             <span class="caret"></span>
 
@@ -38,12 +39,20 @@
                             <li><a href="/logout">退出登录</a></li>
                         </ul>
                     </li>
+                    <li th:if="${session.user == null}">
+                        <a   th:href="@{/loginup}" style="color: #ffffff">
+                            注册
+                        </a>
+                    </li>
 
                     <li th:if="${session.user == null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=83e7ee42167f84d10160&redirect_url=http://localhost:8080/callback&scope=user&state=1">
+                        <a href="https://github.com/login/oauth/authorize?client_id=83e7ee42167f84d10160&redirect_url=http://localhost:8080/callback&scope=user&state=1"
+                           style="color: #ffffff">
                             登录
                         </a>
                     </li>
+
+
 
 
                 </ul>

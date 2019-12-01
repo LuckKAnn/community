@@ -12,10 +12,31 @@ body {
     float: right;
     margin-bottom: 15px;
 }
-
+.navigation {
+    background-color: #499ef3;
+}
 .media-object {
     width: 40px;
     height: 40px;
+}
+/*话题描述类*/
+.descripetion {
+    font-size: 15px;
+    /*background-color: #eee;*/
+}
+/*点赞样式*/
+.dianZan {
+}
+/*为media增加下横线*/
+.media {
+    border-bottom: 1px solid #e6e6e6;
+    margin: 0;
+    padding: 10px;
+
+}
+/*media鼠标指向时变色*/
+.media:hover{
+    background-color: #F0F0F0;
 }
 
 .text-desc {

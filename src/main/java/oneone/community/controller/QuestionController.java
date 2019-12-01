@@ -17,6 +17,7 @@ public class QuestionController {
     public String question(@PathVariable(name = "id")Integer id,
                            Model model){
         QuestionDTO questionDTo = questionService.getById(id);
+        System.out.println(questionDTo);
         model.addAttribute("question",questionDTo);
         return "question";
     }
